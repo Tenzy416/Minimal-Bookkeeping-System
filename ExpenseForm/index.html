@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極簡智能記帳系統 - 期末專題展示</title>
+    <!-- 引入自訂樣式表 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入 Google Fonts：使用現代感無襯線字體 Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入 FontAwesome 圖標庫，為網頁增加精緻小圖標 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 主排版容器：使用網格佈局 (CSS Grid)，支援 RWD 響應式 -->
+    <div class="dashboard-container">
+        
+        <!-- ================= 左側：新增記帳表單卡片 ================= -->
+        <div class="expense-card form-section">
+            <h1 class="card-title">
+                <i class="fas fa-edit" style="color: #3b82f6; margin-right: 8px;"></i>新增記帳
+            </h1>
+            <p class="card-subtitle">隨手記下每一筆收支，建立良好財務習慣</p>
+            
+            <!-- 成功提示訊息區塊 (Toast) -->
+            <div id="toast-message" class="toast hidden">
+                新增成功！
+            </div>
+
+            <!-- 記帳表單 -->
+            <form id="expense-form">
+                <!-- 類型選擇 (收入 / 支出) -->
+                <div class="form-group">
+                    <label for="type">交易類型</label>
+                    <select id="type" name="type" required>
+                        <option value="expense">支出 (-)</option>
+                        <option value="income">收入 (+)</option>
+                    </select>
+                </div>
+
+                <!-- 金額輸入欄位 -->
+                <div class="form-group">
+                    <label for="amount">交易金額 (元)</label>
+                    <input type="number" id="amount" name="amount" placeholder="0" min="0" required>
+                </div>
+
+                <!-- 日期選擇器 -->
+                <div class="form-group">
+                    <label for="date">交易日期</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+
+                <!-- 備註輸入欄位 -->
+                <div class="form-group">
+                    <label for="notes">備註說明</label>
+                    <input type="text" id="notes" name="notes" placeholder="例如：午餐、交通費、薪水...">
+                </div>
+
+                <!-- 送出按鈕 -->
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-plus-circle" style="margin-right: 6px;"></i>新增紀錄
+                </button>
+            </form>
+        </div>
+
+        <!-- ================= 右側：歷史紀錄與數據摘要卡片 ================= -->
+        <div class="expense-card history-section">
+            <h1 class="card-title">
+                <i class="fas fa-history" style="color: #3b82f6; margin-right: 8px;"></i>歷史紀錄
+            </h1>
+            <p class="card-subtitle">即時同步 Flask 資料庫，日期由新到舊排序</p>
+
+            <!-- 數據摘要欄位：顯示本期財務概況，提升專案視覺亮點 -->
+            <div class="summary-grid">
+                <!-- 總收入卡片 -->
+                <div class="summary-card income">
+                    <div class="summary-header">
+                        <span class="summary-label">總收入</span>
+                        <div class="summary-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <span class="summary-value" id="total-income">+$0</span>
+                </div>
+                <!-- 總支出卡片 -->
+                <div class="summary-card expense">
+                    <div class="summary-header">
+                        <span class="summary-label">總支出</span>
+                        <div class="summary-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                    </div>
+                    <span class="summary-value" id="total-expense">-$0</span>
+                </div>
+                <!-- 目前結餘卡片 -->
+                <div class="summary-card balance">
+                    <div class="summary-header">
+                        <span class="summary-label">目前結餘</span>
+                        <div class="summary-icon">
+                            <i class="fas fa-scale-balanced"></i>
+                        </div>
+                    </div>
+                    <span class="summary-value" id="total-balance">$0</span>
+                </div>
+            </div>
+
+            <!-- 歷史紀錄動態卡片列表容器 -->
+            <div id="history-list" class="history-list">
+                <!-- 載入中動畫骨架 (可在 fetch 期間顯示，提升 UX 品質) -->
+                <div class="loading-state">
+                    <i class="fas fa-spinner fa-spin"></i> 資料載入中...
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- 引入 JavaScript 邏輯 -->
+    <script src="script.js"></script>
+</body>
+</html>

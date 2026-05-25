@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+*.db
+*.sqlite3
+
+# IDEs/Editors
+.vscode/
+.idea/
+
+# Operating System
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,492 @@
+/* ==========================================================================
+   大學生期末專題：極簡智能記帳系統樣式表 (CSS)
+   設計風格：現代簡約風 (Minimalist Modern UI/UX)
+   特點：採用 CSS Grid 雙欄式 RWD 佈局、精緻卡片投影、微互動懸停動畫、翡翠綠與胭脂紅收支標色
+   ========================================================================== */
+
+/* 全局重設與預設字體 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    /* 採用極簡淺灰冷調底色，視覺感受清爽不刺眼 */
+    background-color: #f6f8fa;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 頂部對齊以利於頁面延展 */
+    min-height: 100vh;
+    padding: 30px 20px;
+    color: #2d3748;
+}
+
+/* ==========================================================================
+   排版版型架構 (Layout Grid) - 響應式核心
+   ========================================================================== */
+.dashboard-container {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    /* 雙欄比例：左側新增表單佔 3.8，右側歷史明細佔 6.2，形成黃金視覺比例 */
+    grid-template-columns: 3.8fr 6.2fr;
+    gap: 28px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   通用卡片樣式 (Card UI)
+   ========================================================================== */
+.expense-card {
+    background-color: #ffffff;
+    border-radius: 20px; /* 圓潤現代感大倒角 */
+    padding: 36px 32px;
+    /* 極具質感的柔和雙重投影，創造立體浮空感 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 10px 40px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(226, 232, 240, 0.6);
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 微動態懸停回饋 */
+.expense-card:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 16px 50px rgba(0, 0, 0, 0.06);
+}
+
+/* 標題與副標題 */
+.card-title {
+    font-size: 22px;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+
+.card-subtitle {
+    font-size: 13px;
+    color: #94a3b8; /* 偏冷調淡灰色 */
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   左側表單欄位設計 (Form Fields)
+   ========================================================================== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13.5px;
+    color: #475569;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+/* 輸入框、下拉選單樣式升級 */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 14.5px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    outline: none;
+    background-color: #f8fafc;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    color: #334155;
+}
+
+/* 聚焦 (Focus) 時的發光外框 */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #3b82f6; /* 經典科技藍 */
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.form-group input::placeholder {
+    color: #cbd5e1;
+}
+
+/* 送出按鈕 */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 15.5px;
+    color: #ffffff;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    margin-top: 16px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.submit-btn:hover {
+    background-color: #2563eb;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+}
+
+.submit-btn:active {
+    transform: scale(0.98); /* 點擊反饋縮小 */
+}
+
+/* ==========================================================================
+   右側財務摘要面板 (Summary Cards) - 現代白藍配色 (White & Blue Theme)
+   ========================================================================== */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.summary-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 18px 16px;
+    border: 1.5px solid #e2e8f0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.015);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+    border-color: #3b82f6;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.12);
+}
+
+/* 頂部圖標與標籤排版 */
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.summary-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.summary-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.summary-card:hover .summary-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.summary-value {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: color 0.3s ease;
+}
+
+/* 總收入：明亮海藍，象徵財富流入 */
+.summary-card.income {
+    border-left: 4px solid #3b82f6;
+}
+.summary-card.income .summary-icon {
+    background-color: #eff6ff;
+    color: #3b82f6;
+}
+.summary-card.income .summary-value {
+    color: #1d4ed8;
+}
+
+/* 總支出：沉穩天藍，象徵理性支出 */
+.summary-card.expense {
+    border-left: 4px solid #60a5fa;
+}
+.summary-card.expense .summary-icon {
+    background-color: #f0f9ff;
+    color: #0284c7;
+}
+.summary-card.expense .summary-value {
+    color: #0369a1;
+}
+
+/* 目前結餘：高貴皇家藍與微漸層底色，突顯財務結算 */
+.summary-card.balance {
+    border-left: 4px solid #1d4ed8;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+}
+.summary-card.balance .summary-icon {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+.summary-card.balance .summary-value {
+    color: #1e3a8a;
+}
+
+/* ==========================================================================
+   動態歷史紀錄列表 (History List)
+   ========================================================================== */
+.history-list {
+    max-height: 480px; /* 超出則內部滾動，保持整體介面整齊 */
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 自訂捲軸樣式 (讓滾動看起來精美) */
+.history-list::-webkit-scrollbar {
+    width: 6px;
+}
+.history-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+.history-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+/* 卡片式列表明細項目 */
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f8fafc;
+    border-radius: 14px;
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+}
+
+/* 懸停在高亮歷史項目時 */
+.history-item:hover {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    transform: translateX(4px); /* 向右微幅彈跳 */
+}
+
+/* 歷史項目左側佈局 */
+.item-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+/* 圓形收支小圖標 */
+.item-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* 收入/支出圖標特定顏色 */
+.item-icon.income {
+    background-color: #d1fae5;
+    color: #10b981;
+}
+
+.item-icon.expense {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+/* 記帳明細文字 */
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* 備註 */
+.item-note {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* 日期 */
+.item-date {
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 右側金額與標記 */
+.item-right {
+    text-align: right;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* 金額標色：收入綠，支出紅 */
+.item-amount.income {
+    color: #10b981;
+}
+
+.item-amount.expense {
+    color: #ef4444;
+}
+
+/* ==========================================================================
+   狀態展示樣式 (Loading, Empty, Toast)
+   ========================================================================== */
+
+/* 載入中狀態 */
+.loading-state {
+    text-align: center;
+    padding: 40px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.loading-state i {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+    color: #3b82f6;
+}
+
+/* 空白狀態樣式（重點需求項目！） */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+    background-color: #f8fafc;
+    border-radius: 16px;
+    border: 2px dashed #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.empty-state i {
+    font-size: 36px;
+    color: #cbd5e1;
+}
+
+.empty-text {
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+/* 提示訊息 (Toast) 樣式設計 */
+.toast {
+    background-color: #10b981; /* 翡翠綠 */
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 隱藏提示訊息時的狀態 */
+.toast.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    position: absolute;
+    visibility: hidden;
+}
+
+/* ==========================================================================
+   RWD 響應式斷點設計
+   ========================================================================== */
+
+/* 桌機與平版分界 (960px) */
+@media (max-width: 960px) {
+    .dashboard-container {
+        grid-template-columns: 1fr; /* 切換為單欄垂直排列 */
+        max-width: 550px;
+        gap: 24px;
+    }
+    
+    body {
+        padding: 20px 16px;
+    }
+}
+
+/* 手機版 (480px) */
+@media (max-width: 480px) {
+    .expense-card {
+        padding: 28px 16px; /* 縮減卡片內距 */
+    }
+    
+    .card-title {
+        font-size: 19px;
+    }
+    
+    .summary-grid {
+        gap: 8px;
+    }
+    
+    .summary-card {
+        padding: 10px 8px;
+        border-radius: 12px;
+    }
+    
+    .summary-header {
+        margin-bottom: 6px;
+    }
+    
+    .summary-label {
+        font-size: 10.5px;
+    }
+    
+    .summary-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
+        border-radius: 6px;
+    }
+    
+    .summary-value {
+        font-size: 13px;
+    }
+    
+    .history-item {
+        padding: 12px 14px;
+    }
+}

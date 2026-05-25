@@ -1,0 +1,261 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首爾五天四夜｜韓系簡約輕旅行</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts Noto Sans TC 提供乾淨的字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    },
+                    colors: {
+                        korea: {
+                            bg: '#FAFAFA',      /* 暖白背景 */
+                            card: '#FFFFFF',
+                            textInfo: '#888888',
+                            textMain: '#2D3748',
+                            accent: '#FF8A8A'   /* 柔和的石榴紅/櫻花粉點綴 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { 
+            background-color: theme('colors.korea.bg'); 
+        }
+        /* Hero 區背景圖：加上漸層遮罩讓文字更清晰 */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1540205082181-dfedced755d9?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="antialiased text-korea-textMain selection:bg-korea-accent selection:text-white pb-6">
+
+    <!-- Hero 區 -->
+    <header class="hero-bg h-[65vh] md:h-[75vh] flex flex-col items-center justify-center text-center px-6 mx-2 md:mx-6 mt-2 md:mt-4 rounded-[2rem] md:rounded-[3rem] shadow-sm">
+        <span class="px-4 py-1.5 border border-white/40 rounded-full text-white text-xs md:text-sm tracking-[0.2em] mb-6 backdrop-blur-sm">
+            DISCOVER SEOUL
+        </span>
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-4 tracking-wide drop-shadow-md">
+            首爾慢活五日遊
+        </h1>
+        <p class="text-white/90 text-sm md:text-lg font-light tracking-wide max-w-md mt-2 drop-shadow-sm">
+            專屬年輕人的韓系簡約輕旅行<br>感受傳統與現代交織的浪漫
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        
+        <!-- 五天行程卡片區 -->
+        <section class="mb-24">
+            <div class="flex flex-col mb-10 md:mb-12">
+                <p class="text-korea-accent text-sm font-semibold tracking-widest mb-1">PLAN YOUR TRIP</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">行程總覽</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                
+                <!-- Day 1 卡片 -->
+                <div class="bg-korea-card p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-gray-100/50">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest">DAY 1</span>
+                        <span class="text-gray-300 text-sm font-light">初到弘大</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">抵達與初探弘大</h3>
+                    <ul class="space-y-4 text-gray-500 text-sm font-medium">
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 仁川機場抵達，搭乘 AREX
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 弘大商圈入住與換錢
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 延南洞文青咖啡廳打卡
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 晚餐：韓國橋村炸雞
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 2 卡片 -->
+                <div class="bg-korea-card p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-gray-100/50">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest">DAY 2</span>
+                        <span class="text-gray-300 text-sm font-light">穿越古今</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">宮殿與北村浪漫</h3>
+                    <ul class="space-y-4 text-gray-500 text-sm font-medium">
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 租借韓服漫步景福宮
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 北村韓屋村尋幽探訪
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 午餐：土俗村蔘雞湯
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 三清洞藝術街區散步
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 3 卡片 -->
+                <div class="bg-korea-card p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-gray-100/50">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest">DAY 3</span>
+                        <span class="text-gray-300 text-sm font-light">潮流購物</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">設計師品牌巡禮</h3>
+                    <ul class="space-y-4 text-gray-500 text-sm font-medium">
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 逛街聖地：漢南洞品牌探店
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 梨泰院特色異國早午餐
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 聖水洞工業風咖啡體驗
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 晚餐：新堂洞辣炒年糕
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 4 卡片 -->
+                <div class="bg-korea-card p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-gray-100/50 lg:col-start-1 lg:col-end-2 md:col-start-1 md:col-end-3 lg:mx-0">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest">DAY 4</span>
+                        <span class="text-gray-300 text-sm font-light">地標夜景</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">城市天際線與漢江</h3>
+                    <ul class="space-y-4 text-gray-500 text-sm font-medium">
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 明洞美妝大採購 & 街頭小吃
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 南山首爾塔俯瞰黃昏全城
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 盤浦大橋月光彩虹噴泉
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 宵夜：漢江公園吹風吃泡麵
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Day 5 卡片 -->
+                <div class="bg-korea-card p-8 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 border border-gray-100/50 lg:col-start-2 lg:col-end-4 md:col-start-1 md:col-end-3">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest">DAY 5</span>
+                        <span class="text-gray-300 text-sm font-light">告別首爾</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">滿載而歸的歸途</h3>
+                    <ul class="space-y-4 text-gray-500 text-sm font-medium lg:grid lg:grid-cols-2 lg:gap-x-6 lg:space-y-0">
+                        <li class="flex items-start lg:mb-4">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 首爾站樂天超市零食伴手禮
+                        </li>
+                        <li class="flex items-start lg:mb-4">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 弘大最後巡禮與早午餐
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 搭乘機場巴士 / AREX 前往仁川
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-korea-accent mr-3 mt-0.5">✦</span> 平安返家，結束完美首爾之旅
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 景點與美食區 -->
+        <section>
+            <div class="flex flex-col mb-10 md:mb-12">
+                <p class="text-korea-accent text-sm font-semibold tracking-widest mb-1">MUST VISIT</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">必訪亮點</h2>
+            </div>
+            
+            <!-- 瀑布流 / 網格影像呈現韓系美感 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                
+                <!-- Highlight 1 -->
+                <div class="group relative rounded-[2rem] overflow-hidden aspect-[3/4] md:aspect-[4/5] shadow-sm transform hover:-translate-y-2 transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1589255263620-b0b30bb2243e?q=80&w=800&auto=format&fit=crop" alt="景福宮" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent flex flex-col justify-end p-5 md:p-6 opacity-90">
+                        <h4 class="text-white font-medium text-lg tracking-wide">景福宮韓服</h4>
+                        <p class="text-gray-200 text-xs mt-1 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">體驗傳統之美</p>
+                    </div>
+                </div>
+                
+                <!-- Highlight 2 -->
+                <div class="group relative rounded-[2rem] overflow-hidden aspect-[3/4] md:aspect-[4/5] shadow-sm transform md:translate-y-6 hover:-translate-y-2 transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1596568249821-26c71be3fd9c?q=80&w=800&auto=format&fit=crop" alt="韓國烤肉" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent flex flex-col justify-end p-5 md:p-6 opacity-90">
+                        <h4 class="text-white font-medium text-lg tracking-wide">正宗烤豬五花</h4>
+                        <p class="text-gray-200 text-xs mt-1 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">夜晚的美食饗宴</p>
+                    </div>
+                </div>
+
+                <!-- Highlight 3 -->
+                <div class="group relative rounded-[2rem] overflow-hidden aspect-[3/4] md:aspect-[4/5] shadow-sm transform hover:-translate-y-2 transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1620247926227-2bca5af87d6d?q=80&w=800&auto=format&fit=crop" alt="南山塔" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent flex flex-col justify-end p-5 md:p-6 opacity-90">
+                        <h4 class="text-white font-medium text-lg tracking-wide">南山夜景</h4>
+                        <p class="text-gray-200 text-xs mt-1 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">俯瞰繁華首爾</p>
+                    </div>
+                </div>
+
+                <!-- Highlight 4 -->
+                <div class="group relative rounded-[2rem] overflow-hidden aspect-[3/4] md:aspect-[4/5] shadow-sm transform md:translate-y-6 hover:-translate-y-2 transition-transform duration-500">
+                    <img src="https://images.unsplash.com/photo-1559981421-4d7a8d9a24bb?q=80&w=800&auto=format&fit=crop" alt="文青咖啡廳" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/10 to-transparent flex flex-col justify-end p-5 md:p-6 opacity-90">
+                        <h4 class="text-white font-medium text-lg tracking-wide">質感咖啡館</h4>
+                        <p class="text-gray-200 text-xs mt-1 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">聖水洞/延南洞必打卡</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-20 px-6">
+        <div class="bg-gray-100/50 rounded-[2rem] md:rounded-[3rem] max-w-6xl mx-auto py-12 flex flex-col items-center justify-center text-center">
+            <h2 class="text-xl font-bold text-gray-800 tracking-[0.2em] mb-6">SEOUL_TRIP.</h2>
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-500 font-medium mb-8">
+                <a href="#" class="hover:text-korea-accent transition-colors">行程下載</a>
+                <a href="#" class="hover:text-korea-accent transition-colors">推薦住宿</a>
+                <a href="#" class="hover:text-korea-accent transition-colors">交通指南</a>
+                <a href="#" class="hover:text-korea-accent transition-colors">Instagram</a>
+            </div>
+            <p class="text-xs text-gray-400 font-light tracking-wide">
+                © 2026 Minimalist Seoul Travel. Crafted for Youth.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
+```
