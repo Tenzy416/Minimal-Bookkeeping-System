@@ -283,14 +283,59 @@ function renderDashboard(expenses) {
                         </span>
                     </div>
                 </div>
-                <div class="item-right">
-                    <!-- 金額金額，收入綠、支出紅 -->
-                    <span class="item-amount ${typeClass}">${amountFormatted}</span>
+                <div class="item-right-container" style="display: flex; align-items: center; gap: 14px;">
+                    <div class="item-right">
+                        <!-- 金額金額，收入綠、支出紅 -->
+                        <span class="item-amount ${typeClass}">${amountFormatted}</span>
+                    </div>
+                    <!-- 刪除按鈕 -->
+                    <button class="delete-btn" onclick="deleteExpense(${item.id})" title="刪除此紀錄">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </div>
             </div>
         `;
         historyList.insertAdjacentHTML('beforeend', itemHTML);
     });
+}
+
+// ----------------------------------------------------
+// API 串接：刪除記帳資料 (DELETE)
+// ----------------------------------------------------
+async function deleteExpense(id) {
+    if (!confirm('您確定要刪除這筆記帳紀錄嗎？')) {
+        return;
+    }
+
+    try {
+        if (isBackendConnected) {
+            // ---------------- API 模式：發送 DELETE 請求 ----------------
+            const response = await fetch(`/api/expenses/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || '刪除失敗');
+            }
+
+            showToast('<i class="fas fa-check-circle"></i> 紀錄已成功刪除！', 'success');
+        } else {
+            // ---------------- 模擬展示模式：從 LocalStorage 刪除 ----------------
+            let fallbackData = getFallbackData();
+            fallbackData = fallbackData.filter(item => item.id !== id);
+            saveFallbackData(fallbackData);
+
+            showToast('<i class="fas fa-info-circle"></i> 紀錄已成功刪除！(模擬展示)', 'success');
+        }
+
+        // 重新讀取 API 資料，動態更新畫面列表與統計數據
+        await fetchExpenses();
+
+    } catch (error) {
+        console.error('刪除失敗:', error);
+        showToast(`<i class="fas fa-exclamation-triangle"></i> 刪除失敗: ${error.message}`, 'error');
+    }
 }
 
 // ----------------------------------------------------

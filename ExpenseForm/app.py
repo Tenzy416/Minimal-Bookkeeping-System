@@ -11,6 +11,7 @@
 接著在瀏覽器打開：http://127.0.0.1:5000/
 """
 
+# pyrefly: ignore [missing-import]
 from flask import Flask, request, jsonify, send_from_directory
 import sqlite3
 import os
@@ -218,6 +219,34 @@ def get_summary():
         return jsonify({
             "status": "error",
             "message": f"統計資料計算失敗: {str(e)}"
+        }), 500
+@app.route('/delete_expense/<int:expense_id>', methods=['DELETE'])
+@app.route('/api/expenses/<int:expense_id>', methods=['DELETE'])
+def delete_expense(expense_id):
+    """
+    刪除指定 ID 的記帳資料 API
+    """
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+        
+        # 檢查該筆資料是否存在
+        cursor.execute("SELECT id FROM expenses WHERE id = ?", (expense_id,))
+        row = cursor.fetchone()
+        if not row:
+            conn.close()
+            return jsonify({"status": "error", "message": "找不到該筆記帳紀錄"}), 404
+        
+        # 執行刪除
+        cursor.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+        conn.commit()
+        conn.close()
+        
+        return jsonify({"status": "success", "message": "紀錄已成功刪除！"}), 200
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"刪除失敗: {str(e)}"
         }), 500
 
 

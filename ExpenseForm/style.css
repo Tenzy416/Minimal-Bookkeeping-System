@@ -367,6 +367,34 @@ body {
     color: #ef4444;
 }
 
+/* 刪除按鈕樣式 */
+.delete-btn {
+    background: none;
+    border: none;
+    color: #94a3b8; /* 預設為淡灰色，避免視覺干擾 */
+    cursor: pointer;
+    font-size: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+/* 懸停時變為精緻的胭脂紅背景與淡紅圖標 */
+.delete-btn:hover {
+    background-color: #fee2e2;
+    color: #ef4444;
+    transform: scale(1.08);
+}
+
+.delete-btn:active {
+    transform: scale(0.95);
+}
+
 /* ==========================================================================
    狀態展示樣式 (Loading, Empty, Toast)
    ========================================================================== */
