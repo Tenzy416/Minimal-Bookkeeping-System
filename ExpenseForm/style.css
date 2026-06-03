@@ -296,6 +296,9 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
+    min-width: 0; /* 關鍵：允許子元件彈性收縮以進行文字折行 */
+    flex: 1; /* 佔滿可用空間 */
+    margin-right: 16px; /* 與右側金額保留間距 */
 }
 
 /* 圓形收支小圖標 */
@@ -307,6 +310,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 14px;
+    flex-shrink: 0; /* 防止圖標被壓縮變形 */
 }
 
 /* 收入/支出圖標特定顏色 */
@@ -325,6 +329,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0; /* 關鍵：允許內部文字折行 */
 }
 
 /* 備註 */
@@ -332,6 +337,8 @@ body {
     font-size: 14.5px;
     font-weight: 600;
     color: #1e293b;
+    word-break: break-all; /* 長字串或無空格字元強制換行 */
+    overflow-wrap: break-word;
 }
 
 /* 日期 */
@@ -348,6 +355,7 @@ body {
     text-align: right;
     font-size: 16px;
     font-weight: 700;
+    flex-shrink: 0; /* 關鍵：防止金額被壓縮變形 */
 }
 
 /* 金額標色：收入綠，支出紅 */
@@ -439,7 +447,7 @@ body {
 @media (max-width: 960px) {
     .dashboard-container {
         grid-template-columns: 1fr; /* 切換為單欄垂直排列 */
-        max-width: 550px;
+        max-width: 750px; /* 平板寬度優化：由 550px 擴展至 750px，畫面更舒展 */
         gap: 24px;
     }
     
@@ -450,43 +458,60 @@ body {
 
 /* 手機版 (480px) */
 @media (max-width: 480px) {
+    .dashboard-container {
+        max-width: 100%; /* 手機版佔滿寬度 */
+    }
+
     .expense-card {
-        padding: 28px 16px; /* 縮減卡片內距 */
+        padding: 28px 20px; /* 縮減卡片內距 */
     }
     
     .card-title {
         font-size: 19px;
     }
     
+    /* 重構手機統計欄位：改為單欄垂直卡片堆疊，防止大金額左右擠壓跑版 */
     .summary-grid {
-        gap: 8px;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 24px;
     }
     
     .summary-card {
-        padding: 10px 8px;
-        border-radius: 12px;
+        padding: 14px 18px;
+        border-radius: 14px;
+        flex-direction: row; /* 行排列：左側為項目名稱與圖標，右側為金額 */
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        border-left-width: 5px; /* 加粗左側辨識條 */
     }
     
     .summary-header {
-        margin-bottom: 6px;
+        margin-bottom: 0; /* 取消原本垂直排列的下邊距 */
+        width: auto;
+        display: flex;
+        align-items: center;
+        gap: 10px; /* 圖標與文字左右間距 */
     }
     
     .summary-label {
-        font-size: 10.5px;
+        font-size: 14px;
+        font-weight: 600;
     }
     
     .summary-icon {
-        width: 22px;
-        height: 22px;
-        font-size: 10px;
-        border-radius: 6px;
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+        border-radius: 8px;
     }
     
     .summary-value {
-        font-size: 13px;
+        font-size: 18px; /* 還原為清晰易讀的字型大小 */
     }
     
     .history-item {
-        padding: 12px 14px;
+        padding: 14px 16px;
     }
 }

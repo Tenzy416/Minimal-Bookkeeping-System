@@ -152,14 +152,26 @@ expenseForm.addEventListener('submit', async function(event) {
 
     // 取得使用者輸入的資料
     const type = document.getElementById('type').value;
-    const amount = document.getElementById('amount').value;
+    const amountVal = document.getElementById('amount').value.trim();
     const date = document.getElementById('date').value;
-    const notes = document.getElementById('notes').value;
+    const notes = document.getElementById('notes').value.trim();
+
+    // 1. 空白與防禦性欄位驗證
+    if (!type || amountVal === '' || !date) {
+        showToast('<i class="fas fa-exclamation-circle"></i> 請填寫所有必填欄位 (交易類型、金額、日期)！', 'error');
+        return;
+    }
+
+    const amount = parseFloat(amountVal);
+    if (isNaN(amount) || amount <= 0) {
+        showToast('<i class="fas fa-exclamation-circle"></i> 交易金額必須是高於 0 的有效數值！', 'error');
+        return;
+    }
 
     // 整理成標準 JSON 資料格式
     const requestData = {
         type: type,
-        amount: parseFloat(amount), // 將金額字串轉為數值
+        amount: amount,
         date: date,
         note: notes // 後端 app.py 同時相容 note 與 notes
     };
@@ -184,10 +196,11 @@ expenseForm.addEventListener('submit', async function(event) {
             });
 
             if (!response.ok) {
-                throw new Error('新增失敗');
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || '新增失敗');
             }
             
-            showToast('<i class="fas fa-check-circle"></i> 新增成功！已儲存至 SQLite');
+            showToast('<i class="fas fa-check-circle"></i> 新增成功！已儲存至 SQLite', 'success');
         } else {
             // ---------------- 模擬展示模式：寫入 LocalStorage ----------------
             // 模擬一個小延遲，展現 Web App 動態感
@@ -199,7 +212,7 @@ expenseForm.addEventListener('submit', async function(event) {
             fallbackData.push(requestData);
             saveFallbackData(fallbackData);
             
-            showToast('<i class="fas fa-info-circle"></i> 新增成功！(模擬展示)');
+            showToast('<i class="fas fa-info-circle"></i> 新增成功！(模擬展示)', 'success');
         }
 
         // 重置表單，保留今日日期
@@ -212,7 +225,7 @@ expenseForm.addEventListener('submit', async function(event) {
 
     } catch (error) {
         console.error('提交失敗:', error);
-        showToast('<i class="fas fa-exclamation-triangle"></i> 新增失敗，請檢查 API 連線');
+        showToast(`<i class="fas fa-exclamation-triangle"></i> 新增失敗: ${error.message}`, 'error');
     } finally {
         // 恢復按鈕狀態
         submitBtn.innerHTML = originalBtnText;
@@ -297,15 +310,30 @@ function showLoading() {
 }
 
 /**
- * 顯示 Toast 成功提示訊息
+ * 顯示 Toast 提示訊息 (支援成功與錯誤樣式)
  * @param {string} message - 帶有 HTML 的訊息內容
+ * @param {string} type - 提示類型 ('success' | 'error')
  */
-function showToast(message) {
+function showToast(message, type = 'success') {
     toastMessage.innerHTML = message;
+    
+    // 動態變更樣式，避免單一綠色背景不符錯誤提示需求
+    if (type === 'error') {
+        toastMessage.style.backgroundColor = '#ef4444';
+        toastMessage.style.boxShadow = '0 4px 12px rgba(239, 68, 68, 0.2)';
+    } else {
+        toastMessage.style.backgroundColor = '#10b981';
+        toastMessage.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.2)';
+    }
+
     toastMessage.classList.remove('hidden');
 
-    // 3 秒後自動隱藏
-    setTimeout(() => {
+    // 清除舊的計時器，防範連續點擊導致提早隱藏
+    if (window.toastTimeout) {
+        clearTimeout(window.toastTimeout);
+    }
+
+    window.toastTimeout = setTimeout(() => {
         toastMessage.classList.add('hidden');
     }, 3000);
 }

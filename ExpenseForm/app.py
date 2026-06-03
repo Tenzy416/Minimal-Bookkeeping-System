@@ -16,7 +16,8 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-DB_FILE = 'expenses.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_FILE = os.path.join(BASE_DIR, 'expenses.db')
 
 # ----------------------------------------------------
 # 解決跨來源資源共用 (CORS) 限制
@@ -68,17 +69,17 @@ init_db()
 @app.route('/')
 def serve_index():
     """首頁路由，回傳同目錄下的 index.html"""
-    return send_from_directory('.', 'index.html')
+    return send_from_directory(BASE_DIR, 'index.html')
 
 @app.route('/style.css')
 def serve_style():
     """載入 CSS 樣式表"""
-    return send_from_directory('.', 'style.css')
+    return send_from_directory(BASE_DIR, 'style.css')
 
 @app.route('/script.js')
 def serve_script():
     """載入前端 JavaScript 邏輯程式"""
-    return send_from_directory('.', 'script.js')
+    return send_from_directory(BASE_DIR, 'script.js')
 
 # ----------------------------------------------------
 # API 路由實作
@@ -106,6 +107,14 @@ def add_expense():
     if amount is None or not type_ or not date:
         return jsonify({"status": "error", "message": "缺少必填欄位 (amount, type, date)"}), 400
 
+    # 驗證金額是否為正數且格式正確
+    try:
+        amount_val = float(amount)
+        if amount_val <= 0:
+            return jsonify({"status": "error", "message": "交易金額必須大於零"}), 400
+    except (ValueError, TypeError):
+        return jsonify({"status": "error", "message": "交易金額格式錯誤"}), 400
+
     # 確保收支類型正確
     if type_ not in ['income', 'expense']:
         return jsonify({"status": "error", "message": "收支類型 (type) 必須為 'income' 或 'expense'"}), 400
@@ -116,7 +125,7 @@ def add_expense():
         
         # 使用參數化查詢防止 SQL Injection 注入攻擊
         sql = "INSERT INTO expenses (amount, type, date, note) VALUES (?, ?, ?, ?)"
-        cursor.execute(sql, (float(amount), type_, date, note))
+        cursor.execute(sql, (amount_val, type_, date, note))
         
         conn.commit()
         conn.close()
