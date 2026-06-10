@@ -1,0 +1,322 @@
+# W06 課堂練習：用 AI Agent 打造 Web 應用程式
+
+## 課程目標
+
+透過 AI agent（Antigravity）的輔助，以分組方式體驗完整的 Web 應用程式開發流程，為期末專題做準備。
+
+**技術棧：**
+
+- **Flask** — Python 後端 Web 框架
+- **Jinja2** — Flask 內建的 HTML 模板引擎（負責前端頁面渲染）
+- **SQLite** — 輕量級關聯式資料庫
+
+> Jinja2 是 Flask 使用的模板引擎，名稱來自「忍者」（Ninja）——因為它讓產生動態 HTML 變得像忍者一樣靈活。
+
+---
+
+## 建議題目
+
+以下是適合本次練習的題目，**選一個或自訂**：
+
+| 題目         | 說明                                   |
+| ------------ | -------------------------------------- |
+| 任務管理系統 | 可以新增、編輯、刪除任務，標記完成狀態 |
+| 個人記帳簿   | 記錄收入與支出，顯示餘額統計           |
+| 讀書筆記本   | 記錄書名、心得、評分，可搜尋           |
+| 活動報名系統 | 建立活動、顯示報名人數                 |
+| 食譜收藏夾   | 新增食譜、列出材料與步驟               |
+
+---
+
+## 開發流程
+
+本次練習採用完整的 SDLC 流程，分為以下六個階段：
+
+```
+1. 產品需求文件 (Product Requirements Document; PRD)
+       ↓
+2. 系統架構設計
+       ↓
+3. 流程圖設計
+       ↓
+4. 資料庫設計
+       ↓
+5. 路由設計
+       ↓
+6. 程式碼實作
+```
+
+每個階段都有對應的 **Skill**，幫你生成 prompt，引導 AI 產出結果。
+
+---
+
+## Skill 說明
+
+Skill 是預先寫好的 prompt 模板，放在 `.agents/skills/` 資料夾裡。每個 skill 對應一個開發階段。
+
+### 如何使用 Skill
+
+在 Antigravity 的對話框輸入：
+
+```
+/[skill名稱]
+```
+
+例如輸入 `/prd` 就會載入 PRD skill 的 prompt，你可以直接執行或修改後執行。
+
+### 可用的 Skill 清單
+
+| Skill 名稱         | 用途              | 產出文件                                |
+| ------------------ | ----------------- | --------------------------------------- |
+| `prd`            | 產生產品需求文件  | `docs/PRD.md`                         |
+| `architecture`   | 設計系統架構      | `docs/ARCHITECTURE.md`                |
+| `flowchart`      | 畫流程圖          | `docs/FLOWCHART.md`                   |
+| `db-design`      | 設計資料庫 Schema | `docs/DB_DESIGN.md` + `app/models/` |
+| `api-design`     | 規劃路由與頁面    | `docs/ROUTES.md` + `app/routes/`    |
+| `implementation` | 實作程式碼        | 完整程式碼                              |
+
+---
+
+## 完整操作步驟
+
+### 事前準備
+
+1. 確認已安裝 Antigravity 並開啟應用程式
+2. Fork 課程提供的範本專案（在 GitHub 頁面點擊 **Fork**）
+3. Clone 你自己的 fork 到本機：
+   ```bash
+   git clone https://github.com/你的帳號/專案名稱.git
+   cd 專案名稱
+   ```
+4. 在 Antigravity 中開啟該資料夾，並使用側邊聊天欄與 AI 互動
+
+> `.agents/` 資料夾已包含在範本專案中，clone 後即可直接使用。
+
+---
+
+### 階段一：產品需求文件
+
+> **目標：** 把你們的想法變成正式文件，確認全組對「要做什麼」有共識。
+
+**Step 1.1** — 在 Antigravity 輸入以下 prompt，告訴 AI 你的練習題目：
+
+```
+/prd 我要做一個 [你的題目] 系統。請幫我產出 PRD 文件。
+
+系統描述：[用一到兩句話描述你的系統]
+目標用戶：[誰會用這個系統？]
+主要功能（至少列出 5 個）：
+1. [功能 1]
+2. [功能 2]
+3. ...
+```
+
+**Step 1.2** — 確認 `docs/PRD.md` 已產出，全組閱讀並討論：
+
+- 功能範疇是否正確？
+- 有沒有遺漏的功能？
+- MVP 的選擇是否合理？
+
+**Step 1.3** — 請 AI 提交並推送：
+
+```
+請幫我 commit 並推送目前的變更。
+commit 訊息：docs: add PRD
+```
+
+---
+
+### 階段二：系統架構設計
+
+> **目標：** 確認專案的資料夾結構與技術元件。
+
+**Step 2.1** — 在 Antigravity 輸入：
+
+```
+請根據 docs/PRD.md，使用 /architecture skill 產出系統架構文件。
+```
+
+**Step 2.2** — 確認 `docs/ARCHITECTURE.md` 已產出，理解：
+
+- 資料夾結構的邏輯（Model / View / Controller 各在哪）
+- Flask + Jinja2 + SQLite 之間如何協作
+
+**Step 2.3** — 請 AI 提交並推送：
+
+```
+請幫我 commit 並推送目前的變更。
+commit 訊息：docs: add system architecture
+```
+
+---
+
+### 階段三：流程圖設計
+
+> **目標：** 視覺化使用者操作路徑，確認沒有遺漏步驟。
+
+**Step 3.1** — 在 Antigravity 輸入：
+
+```
+請根據 docs/PRD.md 與 docs/ARCHITECTURE.md，使用 /flowchart skill 產出流程圖。
+```
+
+**Step 3.2** — 確認 `docs/FLOWCHART.md` 已產出：
+
+- 用 GitHub 或 VS Code 的 Mermaid 預覽功能查看流程圖
+- 確認使用者流程的每一步都合理
+
+**Step 3.3** — 請 AI 提交並推送：
+
+```
+請幫我 commit 並推送目前的變更。
+commit 訊息：docs: add user flowchart
+```
+
+---
+
+### 階段四：資料庫設計
+
+> **目標：** 決定資料要怎麼儲存，設計資料表結構。
+
+**Step 4.1** — 在 Antigravity 輸入：
+
+```
+請根據所有設計文件，使用 /db-design skill 產出資料庫設計與 Model 程式碼。
+```
+
+**Step 4.2** — 確認產出：
+
+- `docs/DB_DESIGN.md`：ER 圖與資料表說明
+- `database/schema.sql`：SQL 建表語法
+- `app/models/`：Python Model 檔案
+
+**Step 4.3** — 理解每個資料表的欄位，確認沒有遺漏。
+
+**Step 4.4** — 請 AI 提交並推送：
+
+```
+請幫我 commit 並推送目前的變更。
+commit 訊息：feat: add database schema and models
+```
+
+---
+
+### 階段五：路由設計
+
+> **目標：** 規劃每個頁面的 URL 與處理邏輯，為分工做準備。
+
+**Step 5.1** — 在 Antigravity 輸入：
+
+```
+請根據所有設計文件，使用 /api-design skill 產出路由設計文件與路由骨架。
+```
+
+**Step 5.2** — 確認產出：
+
+- `docs/ROUTES.md`：路由總覽表格
+- `app/routes/`：路由骨架（只有函式定義，沒有實作）
+- `app/templates/`：模板清單
+
+**Step 5.3** — 分工！根據路由表分配每個組員負責哪些功能。
+
+**Step 5.4** — 請 AI 提交並推送：
+
+```
+請幫我 commit 並推送目前的變更。
+commit 訊息：feat: add route skeleton and template plan
+```
+
+---
+
+### 階段六：程式碼實作
+
+> **目標：** 按照設計文件，逐步實作完整的應用程式。
+
+**重要原則：一次只做一個步驟，確認可以執行再繼續。**
+
+**Step 6.1 — 初始化專案**
+
+```
+請根據 docs/ARCHITECTURE.md，使用 /implementation skill 的「步驟一」初始化專案骨架。
+```
+
+**Step 6.2 — 實作 Model**
+
+```
+請使用 /implementation skill 的「步驟二」，實作 app/models/ 裡的所有 Model。
+```
+
+**Step 6.3 — 實作路由**
+
+```
+請使用 /implementation skill 的「步驟三」，實作 app/routes/ 裡的路由邏輯。
+
+請先實作 [功能名稱] 的路由。
+```
+
+> 建議每個組員各自在自己的 branch 上實作一個功能，完成後發 PR 合併。
+
+**Step 6.4 — 實作模板**
+
+```
+請使用 /implementation skill 的「步驟四」，實作 app/templates/ 裡的 HTML 模板。
+
+請先實作 [功能名稱] 的模板。
+```
+
+**Step 6.5 — 整合測試**
+
+全部實作完成後，一起測試：
+
+```
+請使用 /implementation skill 的「步驟五」，幫我確認所有功能可以正常運作。
+```
+
+---
+
+## Git 分工建議
+
+建議每個功能用獨立的 branch 開發：
+
+```bash
+# 組員 A 負責任務新增功能
+git checkout -b feature/add-task
+
+# 組員 B 負責任務列表功能
+git checkout -b feature/task-list
+
+# 完成後發 PR，請另一位組員 review
+```
+
+---
+
+## 遇到問題時
+
+**AI 產出的程式碼有錯？**
+
+```
+執行時出現以下錯誤：
+
+[貼上錯誤訊息]
+
+請幫我找出原因並修復。
+```
+
+**不知道怎麼繼續？**
+
+```
+目前進度：[描述你做到哪裡]
+遇到的問題：[說明困難點]
+已嘗試：[說明你試過什麼]
+請幫我想下一步怎麼做。
+```
+
+**想了解某段程式碼的原理？**
+
+```
+請解釋這段程式碼的作用：
+
+[貼上程式碼]
+
+我特別不懂 [具體問題]。
+```
